@@ -393,53 +393,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="雾环状流动的参数计算"><a href="#雾环状流动的参数计算" class="headerlink" title="雾环状流动的参数计算"></a><center>雾环状流动的参数计算</center></h2><h4 id="1-使用分相流模型估算摩阻梯度"><a href="#1-使用分相流模型估算摩阻梯度" class="headerlink" title="1.使用分相流模型估算摩阻梯度"></a>1.使用分相流模型估算摩阻梯度</h4><p>先计算气相和液相的折算流速$W’’$和$W’$，并根据此求出雷诺数</p>
-<script type="math/tex; mode=display">
-    j_{g}=\frac{M''}{A\rho''} = \frac{0.1}{1.64\times\pi\times0.03^{2}/4} = 86.31 m/s</script><script type="math/tex; mode=display">
-j_{f} = \frac{M'}{A\rho'} = \frac{0.2}{1000\times\pi\times 0.03^{2}/4 } = 0.1415 m/s</script><script type="math/tex; mode=display">
-Re_{f}=\frac{j_{f}\rho' D}{\mu'}=\frac{0.1415\times1000\times0.03}{1\times10^{-3}} = 422449</script><script type="math/tex; mode=display">
-Re_{g} = \frac{j_{g}\rho''D}{\mu''}=\frac{86.31\times1.64\times0.03}{1.8\times10^{-5}}=235914
-$$可以看出两相均为湍流。再按布拉修斯公式计算出摩阻系数$\small\lambda_{l}$和$\small\lambda_{g}$。</script><p>\lambda_{f}=0.3164Re_{f}^{-0.25} = 0.3164\times42449^{-0.25}=0.022</p>
-<script type="math/tex; mode=display">
-</script><p>\lambda_{g} = 0.3164Re_{g}^{-0.25} = 0.3164\times235914=0.0109</p>
-<script type="math/tex; mode=display">
-再计算出分液相及分气相的摩阻梯度$(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{l}$和$\small(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}$。</script><p>(\frac{\mathrm{d}p_{g}}{\mathrm{d}z})_{g}=\frac{\lambda_{g}}{D}\frac{G^{2}x^{2}}{2\rho’’}=2175 Pa/m</p>
-<script type="math/tex; mode=display">
-由此计算出马蒂内利参数
-$$    X^{2}=\frac{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{l}}{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}}=0.137</script><p>再由奇斯霍姆式求出气相折算系数</p>
-<script type="math/tex; mode=display">\Phi_{g}^{2}=1+20X+X^{2} = 8.573</script><p>同样的计算出液相折算系数</p>
-<script type="math/tex; mode=display">\Phi_{l}^{2} = 1 + \frac{20}{X} + \frac{1}{X^{2}} =62.35</script><p>最后估算出两相压降梯度</p>
-<script type="math/tex; mode=display">\frac{\mathrm{d}p_{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=18646Pa/m</script><script type="math/tex; mode=display">\frac{\mathrm{d}p_{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=18456Pa/m</script><h4 id="2-计算窜流比"><a href="#2-计算窜流比" class="headerlink" title="2. 计算窜流比"></a>2. 计算窜流比</h4><p>首先计算出无因次量$\bar{Y}$</p>
-<script type="math/tex; mode=display">\bar{Y}=\frac{j_{g}\mu''}{\sigma}\cdot(\frac{\rho''}{\rho'})\times10^{4}=8.74</script><p>再计算出窜流比值$E$</p>
-<script type="math/tex; mode=display">E=0.400038\times(8.7404)^{0.2875}=0.6257</script><h4 id="3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2"><a href="#3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2" class="headerlink" title="3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$"></a>3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$</h4><p>先计算出入窜流量的雷诺数</p>
-<script type="math/tex; mode=display">Re_{lE}=Re_{l}(1-E)=15887</script><p>据此算出摩阻系数</p>
-<script type="math/tex; mode=display">
-    \lambda_{lE}=0.3164Re_{lE}^{-0.25}=0.02818</script><p>计算出扣除被气流带走的水滴后的液相折算速度</p>
-<script type="math/tex; mode=display">
-    j_{E}=\frac{M'(1-E)}{\rho'A}=0.106m/s</script><p>算出气流夹带水滴时的分液相摩阻梯度</p>
-<script type="math/tex; mode=display">
-    (\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{lE}=\frac{\lambda_{lE}}{D}\frac{\rho'j_{E}'^{2}}{2}=5.277</script><p>然后计算出计入窜流量的分液相折算系数</p>
-<script type="math/tex; mode=display">
-    \Phi_{lE}^{2}=\frac{\frac{\mathrm{d}p_{f}}{\mathrm{d}z}}{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{lE}}=3517</script><h4 id="4-计算雾环状流的截面含气率"><a href="#4-计算雾环状流的截面含气率" class="headerlink" title="4.计算雾环状流的截面含气率"></a>4.计算雾环状流的截面含气率</h4><p>由下式计算出雾环状流的截面含气率</p>
-<script type="math/tex; mode=display">
-    (1-\alpha)^{2} =\frac{1}{\Phi_{l}^{2}}</script><p>可以计算得到</p>
-<script type="math/tex; mode=display">
-    \alpha = 1-\frac{1}{\Phi_{l}} = 0.872</script><h4 id="4-计算两相摩阻梯度"><a href="#4-计算两相摩阻梯度" class="headerlink" title="4. 计算两相摩阻梯度"></a>4. 计算两相摩阻梯度</h4><p>先按照下式子求出$\Phi_{g}^{2}$</p>
-<script type="math/tex; mode=display">
-    \Phi_{g}^{2}=[\frac{1+75(1-\alpha)}{\alpha^{5/2}}](\frac{M''+EM'}{M''})\left\{1-2(\frac{\alpha}{1-\alpha})(\frac{\rho''}{\rho'})[\frac{M'(1-E)}{M''}]\right\}^{2}=32.495</script><p>再求得两相摩阻梯度</p>
-<script type="math/tex; mode=display">
-    \frac{\mathrm{d}p_{f}}{\mathrm{d}z}=\Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=70676 Pa/m</script><p>对$\Phi_{g}^{2}$进行迭代计算，如图1所示，$\Phi_{g}^{2}$的值已经收敛，最终可以得到$\alpha = 0.9779$,$\Phi_{g}^{2}=5.0079$,$\frac{\mathrm{d}p_{f}}{\mathrm{d}z}=10892$。</p>
+                <h2 id="雾环状流动的参数计算"><a href="#雾环状流动的参数计算" class="headerlink" title="雾环状流动的参数计算"></a><center>雾环状流动的参数计算</center></h2><h4 id="1-使用分相流模型估算摩阻梯度"><a href="#1-使用分相流模型估算摩阻梯度" class="headerlink" title="1.使用分相流模型估算摩阻梯度"></a>1.使用分相流模型估算摩阻梯度</h4><p>先计算气相和液相的折算流速$W’’$和$W’$，并根据此求出雷诺数<br>$$<br>    j_{g}=\frac{M’’}{A\rho’’} = \frac{0.1}{1.64\times\pi\times0.03^{2}/4} = 86.31 m/s<br>$$<br>$$<br>j_{f} = \frac{M’}{A\rho’} = \frac{0.2}{1000\times\pi\times 0.03^{2}/4 } = 0.1415 m/s<br>$$<br>$$<br>Re_{f}=\frac{j_{f}\rho’ D}{\mu’}=\frac{0.1415\times1000\times0.03}{1\times10^{-3}} = 422449<br>$$<br>$$<br>Re_{g} = \frac{j_{g}\rho’’D}{\mu’’}=\frac{86.31\times1.64\times0.03}{1.8\times10^{-5}}=235914<br>$$<br>可以看出两相均为湍流。再按布拉修斯公式计算出摩阻系数$\small\lambda_{l}$和$\small\lambda_{g}$。<br>$$<br>\lambda_{f}=0.3164Re_{f}^{-0.25} = 0.3164\times42449^{-0.25}=0.022<br>$$</p>
+<p>$$<br>\lambda_{g} = 0.3164Re_{g}^{-0.25} = 0.3164\times235914=0.0109<br>$$<br>再计算出分液相及分气相的摩阻梯度$(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{l}$和$\small(\frac{\mathrm{d}p</em>{f}}{\mathrm{d}z})<em>{g}$。<br>$$<br>(\frac{\mathrm{d}p</em>{g}}{\mathrm{d}z})<em>{g}=\frac{\lambda</em>{g}}{D}\frac{G^{2}x^{2}}{2\rho’’}=2175 Pa/m<br>$$<br>由此计算出马蒂内利参数<br>$$    X^{2}=\frac{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{l}}{(\frac{\mathrm{d}p</em>{f}}{\mathrm{d}z})<em>{g}}=0.137<br>$$<br>再由奇斯霍姆式求出气相折算系数<br>$$    \Phi</em>{g}^{2}=1+20X+X^{2} = 8.573<br>$$<br>同样的计算出液相折算系数<br>$$    \Phi_{l}^{2} = 1 + \frac{20}{X} + \frac{1}{X^{2}} =62.35<br>$$<br>最后估算出两相压降梯度<br>$$    \frac{\mathrm{d}p_{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{g}=18646Pa/m<br>$$<br>$$    \frac{\mathrm{d}p</em>{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=18456Pa/m<br>$$  </p>
+<h4 id="2-计算窜流比"><a href="#2-计算窜流比" class="headerlink" title="2. 计算窜流比"></a>2. 计算窜流比</h4><p>首先计算出无因次量$\bar{Y}$<br>$$     \bar{Y}=\frac{j_{g}\mu’’}{\sigma}\cdot(\frac{\rho’’}{\rho’})\times10^{4}=8.74<br>$$<br>再计算出窜流比值$E$<br>$$    E=0.400038\times(8.7404)^{0.2875}=0.6257<br>$$</p>
+<h4 id="3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2"><a href="#3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2" class="headerlink" title="3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$"></a>3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$</h4><p>先计算出入窜流量的雷诺数<br>$$    Re_{lE}=Re_{l}(1-E)=15887<br>$$<br>据此算出摩阻系数<br>$$<br>    \lambda_{lE}=0.3164Re_{lE}^{-0.25}=0.02818<br>$$<br>计算出扣除被气流带走的水滴后的液相折算速度<br>$$<br>    j_{E}=\frac{M’(1-E)}{\rho’A}=0.106m/s<br>$$<br>算出气流夹带水滴时的分液相摩阻梯度<br>$$<br>    (\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{lE}=\frac{\lambda</em>{lE}}{D}\frac{\rho’j_{E}’^{2}}{2}=5.277<br>$$<br>然后计算出计入窜流量的分液相折算系数<br>$$<br>    \Phi_{lE}^{2}=\frac{\frac{\mathrm{d}p_{f}}{\mathrm{d}z}}{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{lE}}=3517<br>$$</p>
+<h4 id="4-计算雾环状流的截面含气率"><a href="#4-计算雾环状流的截面含气率" class="headerlink" title="4.计算雾环状流的截面含气率"></a>4.计算雾环状流的截面含气率</h4><p>由下式计算出雾环状流的截面含气率<br>$$<br>    (1-\alpha)^{2} =\frac{1}{\Phi_{l}^{2}}<br>$$<br>可以计算得到<br>$$<br>    \alpha = 1-\frac{1}{\Phi_{l}} = 0.872<br>$$</p>
+<h4 id="4-计算两相摩阻梯度"><a href="#4-计算两相摩阻梯度" class="headerlink" title="4. 计算两相摩阻梯度"></a>4. 计算两相摩阻梯度</h4><p>先按照下式子求出$\Phi_{g}^{2}$<br>$$<br>    \Phi_{g}^{2}=<a href="%5Cfrac%7BM''+EM'%7D%7BM''%7D">\frac{1+75(1-\alpha)}{\alpha^{5/2}}</a>\left{1-2(\frac{\alpha}{1-\alpha})(\frac{\rho’’}{\rho’})[\frac{M’(1-E)}{M’’}]\right}^{2}=32.495<br>$$<br>再求得两相摩阻梯度<br>$$<br>    \frac{\mathrm{d}p_{f}}{\mathrm{d}z}=\Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{g}=70676 Pa/m<br>$$<br>对$\Phi</em>{g}^{2}$进行迭代计算，如图1所示，$\Phi_{g}^{2}$的值已经收敛，最终可以得到$\alpha = 0.9779$,$\Phi_{g}^{2}=5.0079$,$\frac{\mathrm{d}p_{f}}{\mathrm{d}z}=10892$。</p>
  <div align="center"><img src="/fog_circulation/Figure_1.png" width="400" height="300" alt="图片名称" align="center">
 
- 图1.不同迭代次数下$\Phi_{g}^{2}$的值 </div>
-
+<p> 图1.不同迭代次数下$\Phi_{g}^{2}$的值 </p></div><p></p>
 <p>带入公式计算</p>
-<script type="math/tex; mode=display">
-    (\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=\frac{\frac{\mathrm{d}p_{f}}{\mathrm{d}z}}{\Phi_{g}^{2}} = 2175 Pa/m</script><p>通过下式计算液膜厚度$\delta$</p>
-<script type="math/tex; mode=display">
-    \alpha = 1 - 4\frac{\delta}{D}</script><p>最终得到液膜厚度$\delta$</p>
-<script type="math/tex; mode=display">
-    \delta = \frac{(1-\alpha)D}{4} = 0.1658 mm</script><h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">import numpy as np
+<p>$$<br>    (\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{g}=\frac{\frac{\mathrm{d}p</em>{f}}{\mathrm{d}z}}{\Phi_{g}^{2}} = 2175 Pa/m<br>$$<br>通过下式计算液膜厚度$\delta$<br>$$<br>    \alpha = 1 - 4\frac{\delta}{D}<br>$$<br>最终得到液膜厚度$\delta$<br>$$<br>    \delta = \frac{(1-\alpha)D}{4} = 0.1658 mm<br>$$ </p>
+<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">import numpy as np
 import matplotlib.pyplot as plt
 from math import *
 
