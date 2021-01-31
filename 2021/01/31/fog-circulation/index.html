@@ -406,7 +406,7 @@ $$
 
 <p>再求得两相摩阻梯度<br>$$<br>    \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } =\Phi_ { g } ^ { 2 } (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =70676 Pa/m<br>$$<br>对$\Phi_ { g } ^ { 2 } $进行迭代计算，如图1所示，$\Phi_ { g } ^ { 2 } $的值已经收敛，最终可以得到$\alpha = 0.9779$,$\Phi_ { g } ^ { 2 } =5.0079$,$\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } =10892$。</p>
 <p>带入公式计算<br><img src="/2021/01/31/fog-circulation/Figure_1.svg" width="400" height="300" alt="图1.不同迭代次数下$\Phi_ { g } ^ { 2 } $的值"><br>$$<br>    (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =\frac { \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z }  }  { \Phi_ { g } ^ { 2 }  }  = 2175 Pa/m<br>$$<br>通过下式计算液膜厚度$\delta$<br>$$<br>    \alpha = 1 - 4\frac { \delta }  { D }<br>$$<br>最终得到液膜厚度$\delta$<br>$$<br>    \delta = \frac { (1-\alpha)D }  { 4 }  = 0.1658 mm<br>$$ </p>
-<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">import numpy as np
+<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><pre class="line-numbers language-py" data-language="py"><code class="language-py">import numpy as np
 import matplotlib.pyplot as plt
 from math import *
 
