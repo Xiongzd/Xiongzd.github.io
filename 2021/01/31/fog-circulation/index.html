@@ -401,7 +401,8 @@
 <h4 id="4-计算两相摩阻梯度"><a href="#4-计算两相摩阻梯度" class="headerlink" title="4. 计算两相摩阻梯度"></a>4. 计算两相摩阻梯度</h4><p>先按照下式子求出$\Phi_{g}^{2}$</p>
 <p>$$<br>    \Phi_{g}^{2}=<a href="%5Cfrac%7BM''+EM'%7D%7BM''%7D">\frac{1+75(1-\alpha)}{\alpha^{5/2}}</a>\left{1-2(\frac{\alpha}{1-\alpha})(\frac{\rho’’}{\rho’})[\frac{M’(1-E)}{M’’}]\right}^{2}=32.495<br>$$</p>
 <p>再求得两相摩阻梯度<br>$$<br>    \frac{\mathrm{d}p_{f}}{\mathrm{d}z}=\Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{g}=70676 Pa/m<br>$$<br>对$\Phi</em>{g}^{2}$进行迭代计算，如图1所示，$\Phi_{g}^{2}$的值已经收敛，最终可以得到$\alpha = 0.9779$,$\Phi_{g}^{2}=5.0079$,$\frac{\mathrm{d}p_{f}}{\mathrm{d}z}=10892$。</p>
-<p><img src="/.io//Figure_1.jpg" alt="图1.不同迭代次数下$\Phi_{g}^{2}$的值"></p>
+<!-- ![图1.不同迭代次数下$\Phi_{g}^{2}$的值](Figure_1.png) -->
+<p><img src="/2021/01/31/fog-circulation/Figure_1.svg" alt="图1.不同迭代次数下$\Phi_{g}^{2}$的值">{:height=”200px” width=”150px”}</p>
 <p>带入公式计算</p>
 <p>$$<br>    (\frac{\mathrm{d}p_{f}}{\mathrm{d}z})<em>{g}=\frac{\frac{\mathrm{d}p</em>{f}}{\mathrm{d}z}}{\Phi_{g}^{2}} = 2175 Pa/m<br>$$<br>通过下式计算液膜厚度$\delta$<br>$$<br>    \alpha = 1 - 4\frac{\delta}{D}<br>$$<br>最终得到液膜厚度$\delta$<br>$$<br>    \delta = \frac{(1-\alpha)D}{4} = 0.1658 mm<br>$$ </p>
 <h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><pre class="line-numbers language-Python" data-language="Python"><code class="language-Python">import numpy as np
@@ -438,7 +439,7 @@ def gradPf(Phi_g_2, grad_Pg):
 
 if __name__ == '__main__':
     ans = []
-    for k in range(1000):
+    for k in range(20):
         Phi_g_2 = Phig2(alpha, M_f, M_g, rho_f, rho_g, E)
         grad_P_new =  gradPf(Phi_g_2, grad_Pg)
         if (fabs(grad_P_new - grad_P)&lt; 1e-8):
@@ -447,13 +448,19 @@ if __name__ == '__main__':
         Phi_lE_2 = grad_P_new / grad_PlE
         alpha = 1 - 1 / sqrt(Phi_lE_2)
         ans.append(Phi_g_2)
+    ans = ans[1:]
 
-plt.plot(np.linspace(0,len(ans),len(ans)),ans)
-plt.scatter(np.linspace(0,len(ans),len(ans)),ans)
-plt.show()
-print(Phi_g_2)
-print(alpha)
-print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    figsize = 8,6
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_subplot(111)
+    plt.subplots_adjust(left=0.06, right=0.94, bottom=0.06, top=0.94)
+    plt.grid(True)
+    plt.plot(np.linspace(0,len(ans),len(ans)),ans)
+    plt.scatter(np.linspace(0,len(ans),len(ans)),ans)
+    plt.show()
+    print(Phi_g_2)
+    print(alpha)
+    print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
