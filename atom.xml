@@ -6,7 +6,7 @@
   <link href="https://xiongzd.github.io/atom.xml" rel="self"/>
   
   <link href="https://xiongzd.github.io/"/>
-  <updated>2021-01-30T05:27:46.247Z</updated>
+  <updated>2021-01-31T06:59:02.561Z</updated>
   <id>https://xiongzd.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>公告</title>
+    <link href="https://xiongzd.github.io/2021/01/31/fog-circulation/"/>
+    <id>https://xiongzd.github.io/2021/01/31/fog-circulation/</id>
+    <published>2021-01-31T06:04:46.000Z</published>
+    <updated>2021-01-31T06:59:02.561Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="雾环状流动的参数计算"><a href="#雾环状流动的参数计算" class="headerlink" title="雾环状流动的参数计算"></a><center>雾环状流动的参数计算</center></h2><h4 id="1-使用分相流模型估算摩阻梯度"><a href="#1-使用分相流模型估算摩阻梯度" class="headerlink" title="1.使用分相流模型估算摩阻梯度"></a>1.使用分相流模型估算摩阻梯度</h4><p>先计算气相和液相的折算流速$W’’$和$W’$，并根据此求出雷诺数</p><script type="math/tex; mode=display">    j_{g}=\frac{M''}{A\rho''} = \frac{0.1}{1.64\times\pi\times0.03^{2}/4} = 86.31 m/s $$</script><p>j_{f} = \frac{M’}{A\rho’} = \frac{0.2}{1000\times\pi\times 0.03^{2}/4 } = 0.1415 m/s</p><script type="math/tex; mode=display">Re_{f}=\frac{j_{f}\rho' D}{\mu'}=\frac{0.1415\times1000\times0.03}{1\times10^{-3}} = 422449</script><p>Re_{g} = \frac{j_{g}\rho’’D}{\mu’’}=\frac{86.31\times1.64\times0.03}{1.8\times10^{-5}}=235914</p><script type="math/tex; mode=display">可以看出两相均为湍流。再按布拉修斯公式计算出摩阻系数$\small\lambda_{l}$和$\small\lambda_{g}$。</script><p>\lambda_{f}=0.3164Re_{f}^{-0.25} = 0.3164\times42449^{-0.25}=0.022</p><script type="math/tex; mode=display">$$\lambda_{g} = 0.3164Re_{g}^{-0.25} = 0.3164\times235914=0.0109$$再计算出分液相及分气相的摩阻梯度$(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{l}$和$\small(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}$。$$(\frac{\mathrm{d}p_{g}}{\mathrm{d}z})_{g}=\frac{\lambda_{g}}{D}\frac{G^{2}x^{2}}{2\rho''}=2175 Pa/m$$由此计算出马蒂内利参数$$    X^{2}=\frac{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{l}}{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}}=0.137$$再由奇斯霍姆式求出气相折算系数$$    \Phi_{g}^{2}=1+20X+X^{2} = 8.573$$同样的计算出液相折算系数$$    \Phi_{l}^{2} = 1 + \frac{20}{X} + \frac{1}{X^{2}} =62.35$$最后估算出两相压降梯度$$    \frac{\mathrm{d}p_{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=18646Pa/m$$$$    \frac{\mathrm{d}p_{f}}{\mathrm{d}z} = \Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=18456Pa/m</script><h4 id="2-计算窜流比"><a href="#2-计算窜流比" class="headerlink" title="2. 计算窜流比"></a>2. 计算窜流比</h4><p>首先计算出无因次量$\bar{Y}$</p><script type="math/tex; mode=display">\bar{Y}=\frac{j_{g}\mu''}{\sigma}\cdot(\frac{\rho''}{\rho'})\times10^{4}=8.74$$再计算出窜流比值$E$$$    E=0.400038\times(8.7404)^{0.2875}=0.6257</script><h4 id="3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2"><a href="#3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2" class="headerlink" title="3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$"></a>3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_{lE}^{2}$</h4><p>先计算出入窜流量的雷诺数</p><script type="math/tex; mode=display">Re_{lE}=Re_{l}(1-E)=15887$$据此算出摩阻系数</script><pre><code>\lambda_{lE}=0.3164Re_{lE}^{-0.25}=0.02818</code></pre><script type="math/tex; mode=display">计算出扣除被气流带走的水滴后的液相折算速度</script><pre><code>j_{E}=\frac{M'(1-E)}{\rho'A}=0.106m/s</code></pre><script type="math/tex; mode=display">算出气流夹带水滴时的分液相摩阻梯度</script><pre><code>(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{lE}=\frac{\lambda_{lE}}{D}\frac{\rho'j_{E}'^{2}}{2}=5.277</code></pre><script type="math/tex; mode=display">然后计算出计入窜流量的分液相折算系数</script><pre><code>\Phi_{lE}^{2}=\frac{\frac{\mathrm{d}p_{f}}{\mathrm{d}z}}{(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{lE}}=3517</code></pre><script type="math/tex; mode=display">#### 4.计算雾环状流的截面含气率由下式计算出雾环状流的截面含气率</script><pre><code>(1-\alpha)^{2} =\frac{1}{\Phi_{l}^{2}}</code></pre><script type="math/tex; mode=display">可以计算得到</script><pre><code>\alpha = 1-\frac{1}{\Phi_{l}} = 0.872</code></pre><script type="math/tex; mode=display">#### 4. 计算两相摩阻梯度先按照下式子求出$\Phi_{g}^{2}$</script><pre><code>\Phi_{g}^{2}=[\frac{1+75(1-\alpha)}{\alpha^{5/2}}](\frac{M''+EM'}{M''})\left\{1-2(\frac{\alpha}{1-\alpha})(\frac{\rho''}{\rho'})[\frac{M'(1-E)}{M''}]\right\}^{2}=32.495</code></pre><script type="math/tex; mode=display">再求得两相摩阻梯度</script><pre><code>\frac{\mathrm{d}p_{f}}{\mathrm{d}z}=\Phi_{g}^{2}(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=70676 Pa/m</code></pre><script type="math/tex; mode=display">对$\Phi_{g}^{2}$进行迭代计算，如图1所示，$\Phi_{g}^{2}$的值已经收敛，最终可以得到$\alpha = 0.9779$,$\Phi_{g}^{2}=5.0079$,$\frac{\mathrm{d}p_{f}}{\mathrm{d}z}=10892$。 <div  align="center"><img src="/fog_circulation/Figure_1.png" width = "400" height = "300" alt="图片名称" align=center /> 图1.不同迭代次数下$\Phi_{g}^{2}$的值 </div>带入公式计算</script><pre><code>(\frac{\mathrm{d}p_{f}}{\mathrm{d}z})_{g}=\frac{\frac{\mathrm{d}p_{f}}{\mathrm{d}z}}{\Phi_{g}^{2}} = 2175 Pa/m</code></pre><script type="math/tex; mode=display">通过下式计算液膜厚度$\delta$</script><pre><code>\alpha = 1 - 4\frac{\delta}{D}</code></pre><script type="math/tex; mode=display">最终得到液膜厚度$\delta$</script><pre><code>\delta = \frac{(1-\alpha)D}{4} = 0.1658 mm</code></pre><p>$$</p><h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><p>‘’’<br>    import numpy as np<br>    import matplotlib.pyplot as plt<br>    from math import *</p><pre><code># 常量M_g = 0.1M_f = 0.2E = 0.6257rho_g = 1.64rho_f = 1000mu_g = 1.8e-5mu_f = 1e-3grad_Pg = 2175grad_PlE = 5.277# 初始值alpha = 0.872Phi_g_2 = 8.573Phi_lE_2 = 3517grad_P = 18646def Phig2(alpha , M_f, M_g, rho_f, rho_g, E):    a = ((1+75*(1-alpha))/(alpha ** (5/2)))    b = ((M_g + E * M_f)/M_g)    c = (1-2*(alpha/(1-alpha))*(rho_g/rho_f)*(M_f*(1-E)/M_g))**2    return a * b * cdef gradPf(Phi_g_2, grad_Pg):    return Phi_g_2 * grad_Pgif __name__ == '__main__':    ans = []    for k in range(1000):        Phi_g_2 = Phig2(alpha, M_f, M_g, rho_f, rho_g, E)        grad_P_new =  gradPf(Phi_g_2, grad_Pg)        if (fabs(grad_P_new - grad_P)&lt; 1e-8):            break        grad_P = grad_P_new        Phi_lE_2 = grad_P_new / grad_PlE        alpha = 1 - 1 / sqrt(Phi_lE_2)        ans.append(Phi_g_2)plt.plot(np.linspace(0,len(ans),len(ans)),ans)plt.scatter(np.linspace(0,len(ans),len(ans)),ans)plt.show()print(Phi_g_2)print(alpha)print(grad_P_new)</code></pre><p>‘’’</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;雾环状流动的参数计算&quot;&gt;&lt;a href=&quot;#雾环状流动的参数计算&quot; class=&quot;headerlink&quot; title=&quot;雾环状流动的参数计算&quot;&gt;&lt;/a&gt;&lt;center&gt;雾环状流动的参数计算&lt;/center&gt;&lt;/h2&gt;&lt;h4 id=&quot;1-使用分相流模型估算摩阻梯度&quot;</summary>
+      
+    
+    
+    
+    <category term="两相流与传热" scheme="https://xiongzd.github.io/categories/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/"/>
+    
+    
+    <category term="两相流与传热" scheme="https://xiongzd.github.io/tags/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/"/>
+    
+    <category term="大学课程" scheme="https://xiongzd.github.io/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/"/>
+    
+    <category term="雾环状流动" scheme="https://xiongzd.github.io/tags/%E9%9B%BE%E7%8E%AF%E7%8A%B6%E6%B5%81%E5%8A%A8/"/>
+    
+    <category term="摩阻分析" scheme="https://xiongzd.github.io/tags/%E6%91%A9%E9%98%BB%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

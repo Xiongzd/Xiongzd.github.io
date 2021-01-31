@@ -366,6 +366,15 @@
                 </a>
                 
                 
+                <a href="/categories/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/" title="两相流与传热: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">两相流与传热
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
             </div>
         </div>
     </div>
@@ -408,7 +417,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"公告","max":2}],
+            indicator: [{"name":"公告","max":2},{"name":"两相流与传热","max":2}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -419,7 +428,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1],
+                    value : [1,1],
                     name : '文章分类数量'
                 }
             ]
@@ -667,6 +676,21 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 
 </html>
