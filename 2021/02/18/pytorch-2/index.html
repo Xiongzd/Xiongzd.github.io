@@ -35,9 +35,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Welcome to Xiong's Blog" type="application/atom+xml">
-
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Welcome to Xiong's Blog" type="application/atom+xml">
 </head>
 
 
@@ -512,6 +512,155 @@ out_img = transforms.ToPILImage()(out_t)
 out_img.save('data/zebra.jpg')
 
 out_img.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/2021/02/18/pytorch-2/zebra.jpg" width="400" height="300" alt="图2. 将马变成斑马">
+
+<p>源代码</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## 2.1 A pretrained network that recognizes the subject of an image
+from torchvision import models
+from torchvision import transforms
+from PIL import Image
+import torch
+import torch.nn as nn
+
+resnet = models.resnet101(pretrained=True)
+
+preprocess = transforms.Compose([
+	transforms.Resize(256),
+	transforms.CenterCrop(224),
+	transforms.ToTensor(),
+	transforms.Normalize(
+		mean=[0.485, 0.456, 0.406],
+		std=[0.229, 0.224, 0.225]
+	)])
+
+img = Image.open("data/bobby.jpg")
+
+# img.show()
+
+img_t = preprocess(img)
+
+batch_t = torch.unsqueeze(img_t, 0)
+
+resnet.eval()
+
+out = resnet(batch_t)
+# print(out)
+
+with open("data/imagenet_classes.txt") as f:
+    labels = [line.strip() for line in f.readlines()]
+
+_, index = torch.max(out, 1)
+# print(out.size())
+percentage = torch.nn.functional.softmax(out, dim=1)[0] *100
+print(labels[index[0]], percentage[index[0]].item())
+
+_, indices = torch.sort(out, descending=True)
+[print(labels[idx], percentage[idx].item()) for idx in indices[0][:5]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## 2.2 A pretrained model that fakes it until it makes it
+from torchvision import models
+from torchvision import transforms
+from PIL import Image
+import torch
+import torch.nn as nn
+
+class ResNetBlock(nn.Module): # &lt;1&gt;
+
+    def __init__(self, dim):
+        super(ResNetBlock, self).__init__()
+        self.conv_block = self.build_conv_block(dim)
+
+    def build_conv_block(self, dim):
+        conv_block = []
+
+        conv_block += [nn.ReflectionPad2d(1)]
+
+        conv_block += [nn.Conv2d(dim, dim, kernel_size=3, padding=0, bias=True),
+                       nn.InstanceNorm2d(dim),
+                       nn.ReLU(True)]
+
+        conv_block += [nn.ReflectionPad2d(1)]
+
+        conv_block += [nn.Conv2d(dim, dim, kernel_size=3, padding=0, bias=True),
+                       nn.InstanceNorm2d(dim)]
+
+        return nn.Sequential(*conv_block)
+
+    def forward(self, x):
+        out = x + self.conv_block(x) # &lt;2&gt;
+        return out
+
+
+class ResNetGenerator(nn.Module):
+
+    def __init__(self, input_nc=3, output_nc=3, ngf=64, n_blocks=9): # &lt;3&gt; 
+
+        assert(n_blocks &gt;= 0)
+        super(ResNetGenerator, self).__init__()
+
+        self.input_nc = input_nc
+        self.output_nc = output_nc
+        self.ngf = ngf
+
+        model = [nn.ReflectionPad2d(3),
+                 nn.Conv2d(input_nc, ngf, kernel_size=7, padding=0, bias=True),
+                 nn.InstanceNorm2d(ngf),
+                 nn.ReLU(True)]
+
+        n_downsampling = 2
+        for i in range(n_downsampling):
+            mult = 2**i
+            model += [nn.Conv2d(ngf * mult, ngf * mult * 2, kernel_size=3,
+                                stride=2, padding=1, bias=True),
+                      nn.InstanceNorm2d(ngf * mult * 2),
+                      nn.ReLU(True)]
+
+        mult = 2**n_downsampling
+        for i in range(n_blocks):
+            model += [ResNetBlock(ngf * mult)]
+
+        for i in range(n_downsampling):
+            mult = 2**(n_downsampling - i)
+            model += [nn.ConvTranspose2d(ngf * mult, int(ngf * mult / 2),
+                                         kernel_size=3, stride=2,
+                                         padding=1, output_padding=1,
+                                         bias=True),
+                      nn.InstanceNorm2d(int(ngf * mult / 2)),
+                      nn.ReLU(True)]
+
+        model += [nn.ReflectionPad2d(3)]
+        model += [nn.Conv2d(ngf, output_nc, kernel_size=7, padding=0)]
+        model += [nn.Tanh()]
+
+        self.model = nn.Sequential(*model)
+
+    def forward(self, input): # &lt;3&gt;
+        return self.model(input)
+
+netG = ResNetGenerator()
+
+# model_path = '../data/p1ch2/horse2zebra_0.4.0.pth'
+model_path = 'data\horse2zebra_0.4.0.pth'
+model_data = torch.load(model_path)
+netG.load_state_dict(model_data)
+
+netG.eval()
+
+preprocess = transforms.Compose([transforms.Resize(256),
+                                 transforms.ToTensor()])
+
+# img = Image.open("../data/p1ch2/horse.jpg")
+img = Image.open("data/horse.jpg")
+
+img_t = preprocess(img)
+batch_t = torch.unsqueeze(img_t, 0)
+
+batch_out = netG(batch_t)
+
+out_t = (batch_out.data.squeeze() + 1.0) / 2.0
+out_img = transforms.ToPILImage()(out_t)
+out_img.save('data/zebra.jpg')
+
+out_img.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
