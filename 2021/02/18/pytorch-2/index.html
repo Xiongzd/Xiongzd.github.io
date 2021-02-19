@@ -486,11 +486,11 @@ tennis ball 0.10991978645324707<span aria-hidden="true" class="line-numbers-rows
 <h3 id="2-2-3-将马变为斑马的网络"><a href="#2-2-3-将马变为斑马的网络" class="headerlink" title="2.2.3 将马变为斑马的网络"></a>2.2.3 将马变为斑马的网络</h3><p>我们将使用 CycleGAN 网络将马变成斑马。CycleGAN 网络已经从ImageNet数据集中提取的马和斑马的图像数据集上进行了训练。</p>
 <p>我们需要定义一个<code>ResNetGenerator</code>类，其实现较为复杂，先不做解释。</p>
 <pre class="line-numbers language-py" data-language="py"><code class="language-py">netG = ResNetGenerator()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-netG```模型已经创建，但它包含随机权重。我们前面提到过，我们将运行一个在horse2zebra数据集上预先训练过的生成器模型，它的训练集包含两组马和斑马的图像，分别是1068和1335张。数据集可以在" data-language="netG```模型已经创建，但它包含随机权重。我们前面提到过，我们将运行一个在horse2zebra数据集上预先训练过的生成器模型，它的训练集包含两组马和斑马的图像，分别是1068和1335张。数据集可以在"><div class="caption"><span>http://mng.bz/8pKP 找到。模型的权重保存在一个.pth文件中。</span></div><code class="language-netG```模型已经创建，但它包含随机权重。我们前面提到过，我们将运行一个在horse2zebra数据集上预先训练过的生成器模型，它的训练集包含两组马和斑马的图像，分别是1068和1335张。数据集可以在">
-```py
-model_path = '../data/p1ch2/horse2zebra_0.4.0.pth'
+<p>此时<code>netG</code>模型已经创建，但它包含随机权重。我们前面提到过，我们将运行一个在horse2zebra数据集上预先训练过的生成器模型，它的训练集包含两组马和斑马的图像，分别是1068和1335张。数据集可以在 (<a target="_blank" rel="noopener" href="http://mng.bz/8pKP">http://mng.bz/8pKP</a>) 找到。</p>
+<p>模型的权重保存在一个.pth文件中。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">model_path = 'data/horse2zebra_0.4.0.pth'
 model_data = torch.load(model_path)
-netG.load_state_dict(model_data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+netG.load_state_dict(model_data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>至此，<code>netG</code>已经获得了他在培训中获得的所有知识。接下来将network置于<code>eval</code>模式。</p>
 <pre class="line-numbers language-py" data-language="py"><code class="language-py">netG.eval()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>就像之前所做的，这里模仿2.1的流程。</p>
@@ -499,7 +499,7 @@ from torchvision import transforms<span aria-hidden="true" class="line-numbers-r
 <p>同样的，将图像转换成network需要的shape和size：</p>
 <pre class="line-numbers language-py" data-language="py"><code class="language-py">preprocess = transforms.Compose([transforms.Resize(256),
                                  transforms.ToTensor()])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>接下来选择一张马的图片，并将其中的马变成斑马</p>
+<p>接下来选择一张马的图片，并将其中的马变成斑马<br><img src="/2021/02/18/pytorch-2/horse.jpg" width="400" height="300" alt="图2.马"></p>
 <pre class="line-numbers language-py" data-language="py"><code class="language-py">img = Image.open("../data/p1ch2/horse.jpg")
 
 img_t = preprocess(img)
@@ -512,7 +512,7 @@ out_img = transforms.ToPILImage()(out_t)
 out_img.save('data/zebra.jpg')
 
 out_img.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="/2021/02/18/pytorch-2/zebra.jpg" width="400" height="300" alt="图2. 将马变成斑马">
+<img src="/2021/02/18/pytorch-2/zebra.jpg" width="400" height="300" alt="图3. 将马变成斑马">
 
 <p>源代码</p>
 <pre class="line-numbers language-py" data-language="py"><code class="language-py">## 2.1 A pretrained network that recognizes the subject of an image
