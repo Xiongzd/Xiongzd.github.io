@@ -392,7 +392,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="1-数据预处理"><a href="#1-数据预处理" class="headerlink" title="1. 数据预处理"></a>1. 数据预处理</h1><p>根据前文，将风速时间序列使用CEEMDAN分解，如图1所示，得到数个固有模态函数的子序列集和，本文将针对其中数个固有模态函数作为训练、验证集。</p>
-<img src="/2021/02/21/graduation-lstm/9#ceemdan.svg" width="400" height="300" alt="图1. 经过CEEMDAN分解的风速时间序列">
+<img src="/2021/02/21/graduation-lstm/9#ceemdan.png" width="400" height="300" alt="图1. 经过CEEMDAN分解的风速时间序列">
 
 <p>其中部分数据如图2所示，其中1-12为分解后的固有模态函数序列，0为原始风速序列。<br><img src="/2021/02/21/graduation-lstm/data.png" width="400" height="300" alt="图2. 经过CEEMDAN分解的风速时间序列部分数据"></p>
 <h1 id="2-LSTM结构设计"><a href="#2-LSTM结构设计" class="headerlink" title="2. LSTM结构设计"></a>2. LSTM结构设计</h1><p>在完成LSTM模型的代码之前，为了方便以后的操作，我决定先完成一个配置文件<code>config.json</code>来完成LSTM模型的参数初始化。在此文件中定义了各种模型训练的参数和模型的结构参数。</p>
