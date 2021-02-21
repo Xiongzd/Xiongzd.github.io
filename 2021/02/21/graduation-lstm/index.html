@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="雾环状流动的参数计算, Welcome to Xiong&#39;s Blog">
+    <meta name="keywords" content="使用PyTorch搭建LSTM进行风速时间序列预测——本科毕设:Part2, Welcome to Xiong&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>雾环状流动的参数计算 | Welcome to Xiong&#39;s Blog</title>
+    <title>使用PyTorch搭建LSTM进行风速时间序列预测——本科毕设:Part2 | Welcome to Xiong&#39;s Blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Xiongzd/cdn@1.1/imgs/log.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -307,12 +307,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">雾环状流动的参数计算</h1>
+                    <h1 class="description center-align post-title">使用PyTorch搭建LSTM进行风速时间序列预测——本科毕设:Part2</h1>
                 </div>
             </div>
         </div>
@@ -334,20 +334,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/">
-                                <span class="chip bg-color">两相流与传热</span>
+                            <a href="/tags/PyTorch/">
+                                <span class="chip bg-color">PyTorch</span>
                             </a>
                         
-                            <a href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/">
-                                <span class="chip bg-color">大学课程</span>
+                            <a href="/tags/LSTM/">
+                                <span class="chip bg-color">LSTM</span>
                             </a>
                         
-                            <a href="/tags/%E9%9B%BE%E7%8E%AF%E7%8A%B6%E6%B5%81%E5%8A%A8/">
-                                <span class="chip bg-color">雾环状流动</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%91%A9%E9%98%BB%E5%88%86%E6%9E%90/">
-                                <span class="chip bg-color">摩阻分析</span>
+                            <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/">
+                                <span class="chip bg-color">时间序列</span>
                             </a>
                         
                     </div>
@@ -358,8 +354,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/" class="post-category">
-                                两相流与传热
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/" class="post-category">
+                                毕业设计
                             </a>
                         
                     </div>
@@ -371,7 +367,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-31
+                    2021-02-21
                 </div>
                 
 
@@ -395,93 +391,268 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="雾环状流动的参数计算"><a href="#雾环状流动的参数计算" class="headerlink" title="雾环状流动的参数计算"></a>雾环状流动的参数计算</h2><h4 id="1-使用分相流模型估算摩阻梯度"><a href="#1-使用分相流模型估算摩阻梯度" class="headerlink" title="1.使用分相流模型估算摩阻梯度"></a>1.使用分相流模型估算摩阻梯度</h4><p>$先计算气相和液相的折算流速W’’和W’，并根据此求出雷诺数$<br>$$<br>    j_ { g } =\frac { M’’ }  { A\rho’’ }  = \frac { 0.1 }  { 1.64\times\pi\times0.03^ { 2 } /4 }  = 86.31 m/s<br>$$</p>
-<p>$$<br>j_ { f }  = \frac { M’ }  { A\rho’ }  = \frac { 0.2 }  { 1000\times\pi\times 0.03^ { 2 } /4  }  = 0.1415 m/s<br>$$ </p>
-<p>$$<br>Re_ { f } =\frac { j_ { f } \rho’ D }  { \mu’ } =\frac { 0.1415\times1000\times0.03 }  { 1\times10^ { -3 }  }  = 422449<br>$$</p>
-<p>$$<br>Re_ { g }  = \frac { j_ { g } \rho’’D }  { \mu’’ } =\frac { 86.31\times1.64\times0.03 }  { 1.8\times10^ { -5 }  } =235914<br>$$</p>
-<p>$可以看出两相均为湍流。再按布拉修斯公式计算出摩阻系数\lambda_ { l } 和\lambda_ { g } 。$</p>
-<p>$$<br>\lambda_ { f } =0.3164Re_ { f } ^ { -0.25 }  = 0.3164\times42449^ { -0.25 } =0.022<br>$$</p>
-<p>$$<br>\lambda_ { g }  = 0.3164Re_ { g } ^ { -0.25 }  = 0.3164\times235914=0.0109<br>$$</p>
-<p>$再计算出分液相及分气相的摩阻梯度(\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { l } 和(\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } $</p>
-<p>$$<br>(\frac { \mathrm { d } p_ { g }  }  { \mathrm { d } z } )_ { g } =\frac { \lambda_ { g }  }  { D } \frac { G^ { 2 } x^ { 2 }  }  { 2\rho’’ } =2175 Pa/m<br>$$</p>
-<p>$由此计算出马蒂内利参数$<br>$$    X^ { 2 } =\frac { (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { l }  }  { (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g }  } =0.137<br>$$</p>
-<p>$再由奇斯霍姆式求出气相折算系数$<br>$$    \Phi_ { g } ^ { 2 } =1+20X+X^ { 2 }  = 8.573<br>$$</p>
-<p>$同样的计算出液相折算系数$<br>$$    \Phi_ { l } ^ { 2 }  = 1 + \frac { 20 }  { X }  + \frac { 1 }  { X^ { 2 }  }  =62.35<br>$$</p>
-<p>$最后估算出两相压降梯度$<br>$$    \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z }  = \Phi_ { g } ^ { 2 } (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =18646Pa/m<br>$$</p>
-<p>$$    \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z }  = \Phi_ { g } ^ { 2 } (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =18456Pa/m<br>$$  </p>
-<h4 id="2-计算窜流比"><a href="#2-计算窜流比" class="headerlink" title="2. 计算窜流比"></a>2. 计算窜流比</h4><p>$首先计算出无因次量  \bar { Y } $</p>
-<p>$$     \bar { Y } =\frac { j_ { g } \mu’’ }  { \sigma } \cdot(\frac { \rho’’ }  { \rho’ } )\times10^ { 4 } =8.74<br>$$ $再计算出窜流比值  E $ </p>
-<p>$$    E=0.400038\times(8.7404)^ { 0.2875 } =0.6257<br>$$</p>
-<h4 id="3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2"><a href="#3-计算气流夹带水滴工况下的分液相折算系数-Phi-lE-2" class="headerlink" title="3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_ { lE } ^ { 2 } $"></a>3. 计算气流夹带水滴工况下的分液相折算系数$\Phi_ { lE } ^ { 2 } $</h4><p>$先计算出入窜流量的雷诺数$<br>$$    Re_ { lE } =Re_ { l } (1-E)=15887<br>$$</p>
-<p>$据此算出摩阻系数$<br>$$<br>    \lambda_ { lE } =0.3164Re_ { lE } ^ { -0.25 } =0.02818<br>$$</p>
-<p>$计算出扣除被气流带走的水滴后的液相折算速度$<br>$$<br>    j_ { E } =\frac { M’(1-E) }  { \rho’A } =0.106m/s<br>$$ </p>
-<p>$算出气流夹带水滴时的分液相摩阻梯度$<br>$$<br>    (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { lE } =\frac { \lambda_ { lE }  }  { D } \frac { \rho’j_ { E } ‘^ { 2 }  }  { 2 } =5.277<br>$$</p>
-<p>$然后计算出计入窜流量的分液相折算系数$<br>$$<br>    \Phi_ { lE } ^ { 2 } =\frac { \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z }  }  { (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { lE }  } =3517<br>$$</p>
-<h4 id="4-计算雾环状流的截面含气率"><a href="#4-计算雾环状流的截面含气率" class="headerlink" title="4.计算雾环状流的截面含气率"></a>4.计算雾环状流的截面含气率</h4><p>$由下式计算出雾环状流的截面含气率$<br>$$<br>    (1-\alpha)^ { 2 }  =\frac { 1 }  { \Phi_ { l } ^ { 2 }  }<br>$$</p>
-<p>$可以计算得到$<br>$$<br>    \alpha = 1-\frac { 1 }  { \Phi_ { l }  }  = 0.872<br>$$</p>
-<h4 id="5-计算两相摩阻梯度"><a href="#5-计算两相摩阻梯度" class="headerlink" title="5. 计算两相摩阻梯度"></a>5. 计算两相摩阻梯度</h4><p>$先按照下式子求出  \Phi_ { g } ^ { 2 } $</p>
+                <h1 id="1-数据预处理"><a href="#1-数据预处理" class="headerlink" title="1. 数据预处理"></a>1. 数据预处理</h1><p>根据前文，将风速时间序列使用CEEMDAN分解，如图1所示，得到数个固有模态函数的子序列集和，本文将针对其中数个固有模态函数作为训练、验证集。</p>
+<img src="/2021/02/21/graduation-lstm/9#ceemdan.svg" width="400" height="300" alt="图1. 经过CEEMDAN分解的风速时间序列">
 
-$$
-\Phi_{g}^{2}=\left[\frac{1+75\left(1-\alpha\right)}{{{\alpha}^{{}^{5}/{}_{2}}}}\right]\left(\frac{{M}''+E{M}''}{{{M}''}}\right){{\left\{1-2\left(\frac{\alpha}{1-\alpha}\right)\left(\frac{{{\rho}''}}{{{\rho}'}}\right)\left[\frac{{M}'\left(1-E\right)}{{{M}''}}\right]\right\}}^{2}}=32.495
-$$
-<p>$再求得两相摩阻梯度$<br>$$<br>    \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } =\Phi_ { g } ^ { 2 } (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =70676 Pa/m<br>$$</p>
-<p>$对\Phi_ { g } ^ { 2 } 进行迭代计算，如图1所示，\Phi_ { g } ^ { 2 } 的值已经收敛，最终可以得到 \alpha = 0.9779,\Phi_ { g } ^ { 2 } =5.0079,\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } =10892。$</p>
-<p>$带入公式计算$<br><img src="/2021/01/31/fog-circulation/Figure_1.svg" width="400" height="300" alt="图1.不同迭代次数下$\Phi_ { g } ^ { 2 } $的值"></p>
-<p>$$<br>    (\frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z } )_ { g } =\frac { \frac { \mathrm { d } p_ { f }  }  { \mathrm { d } z }  }  { \Phi_ { g } ^ { 2 }  }  = 2175 Pa/m<br>$$</p>
-<p>$通过下式计算液膜厚度\delta$<br>$$<br>    \alpha = 1 - 4\frac { \delta }  { D }<br>$$</p>
-<p>$最终得到液膜厚度\delta$<br>$$<br>    \delta = \frac { (1-\alpha)D }  { 4 }  = 0.1658 mm<br>$$ </p>
-<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4>
+<p>其中部分数据如图2所示，其中1-12为分解后的固有模态函数序列，0为原始风速序列。<br><img src="/2021/02/21/graduation-lstm/data.png" width="400" height="300" alt="图2. 经过CEEMDAN分解的风速时间序列部分数据"></p>
+<h1 id="2-LSTM结构设计"><a href="#2-LSTM结构设计" class="headerlink" title="2. LSTM结构设计"></a>2. LSTM结构设计</h1><p>在完成LSTM模型的代码之前，为了方便以后的操作，我决定先完成一个配置文件<code>config.json</code>来完成LSTM模型的参数初始化。在此文件中定义了各种模型训练的参数和模型的结构参数。</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// file name: config.json</span>
+<span class="token punctuation">{</span>
+    <span class="token string">"data"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"filename"</span><span class="token operator">:</span> <span class="token string">"features.xls"</span><span class="token punctuation">,</span>
+        <span class="token string">"columns"</span><span class="token operator">:</span> <span class="token punctuation">[</span>    <span class="token comment">// 选择子序列集中的1、2、5、6、11以及原始序列0的数据作为训练集</span>
+            <span class="token number">0</span><span class="token punctuation">,</span>
+            <span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token number">2</span><span class="token punctuation">,</span>
+            <span class="token number">5</span><span class="token punctuation">,</span>
+            <span class="token number">6</span><span class="token punctuation">,</span>
+            <span class="token number">11</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sequence_length"</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>  <span class="token comment">// 使用前20个点来预测一个新的点</span>
+        <span class="token string">"train_test_split"</span><span class="token operator">:</span> <span class="token number">0.75</span>    <span class="token comment">// 使用前75%作为训练集、余下的25%作为验证集使用</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"training"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"epochs"</span><span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>     <span class="token comment">// 最大迭代次数</span>
+        <span class="token string">"batch_size"</span><span class="token operator">:</span> <span class="token number">120</span>   <span class="token comment">// 每一批次训练的数据量</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"model"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"loss"</span><span class="token operator">:</span> <span class="token string">"mse"</span><span class="token punctuation">,</span>
+        <span class="token string">"optimizer"</span><span class="token operator">:</span> <span class="token string">"adam"</span><span class="token punctuation">,</span>
+        <span class="token string">"layers"</span><span class="token operator">:</span>
+            <span class="token punctuation">{</span>
+                <span class="token string">"type"</span><span class="token operator">:</span> <span class="token string">"lstm"</span><span class="token punctuation">,</span>
+                <span class="token string">"layers"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>        <span class="token comment">// 表示所搭建的模型具有2个LSTM层</span>
+                <span class="token string">"neurons"</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>     <span class="token comment">// 表示所搭建的每个LSTM层都有100个神经元</span>
+                <span class="token string">"input_dim"</span><span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span>     <span class="token comment">// 这里将0,1,2,5,6,11作为输入，是6维的</span>
+                <span class="token string">"output_dim"</span><span class="token operator">:</span> <span class="token number">1</span>     <span class="token comment">// 我们想要的预测结果是一维的风速，所以是1</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">"save_model"</span><span class="token operator">:</span> <span class="token number">1</span>             <span class="token comment">// 是否保存训练模型，是为1，反之为0</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>设置好了各项参数后，就该着手LSTM的模型搭建了，这里使用PyTorch框架完成LSTM的搭建。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## file name: LSTM.py
 
-<pre class="line-numbers language-py" data-language="py"><code class="language-py">import numpy as np
-import matplotlib.pyplot as plt
-from math import *
+import torch.nn as nn
+import torch
 
-# 常量
-M_g = 0.1
-M_f = 0.2
-E = 0.6257
-rho_g = 1.64
-rho_f = 1000
-mu_g = 1.8e-5
-mu_f = 1e-3
-grad_Pg = 2175
-grad_PlE = 5.277
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-# 初始值
-alpha = 0.872
-Phi_g_2 = 8.573
-Phi_lE_2 = 3517
-grad_P = 18646
+class LSTM(nn.Module):
+    def __init__(self, input_dim, hidden_dim, num_layers, out_dim):
+        super(LSTM, self).__init__()
 
-def Phig2(alpha , M_f, M_g, rho_f, rho_g, E):
+        self.hidden_dim = hidden_dim
+        self.num_layers = num_layers
 
-    a = ((1+75*(1-alpha))/(alpha ** (5/2)))
-    b = ((M_g + E * M_f)/M_g)
-    c = (1-2*(alpha/(1-alpha))*(rho_g/rho_f)*(M_f*(1-E)/M_g))**2
+        self.lstm = nn.LSTM(input_dim, hidden_dim, num_layers, batch_first=True)
 
-    return a * b * c
+        self.fc = nn.Linear(hidden_dim, out_dim)
 
-def gradPf(Phi_g_2, grad_Pg):
-    return Phi_g_2 * grad_Pg
+    def forward(self, x):
+        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_dim).requires_grad_().to(device)
+        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_dim).requires_grad_().to(device)
 
-if __name__ == '__main__':
-    ans = []
-    for k in range(1000):
-        Phi_g_2 = Phig2(alpha, M_f, M_g, rho_f, rho_g, E)
-        grad_P_new =  gradPf(Phi_g_2, grad_Pg)
-        if (fabs(grad_P_new - grad_P)&lt; 1e-8):
-            break
-        grad_P = grad_P_new
-        Phi_lE_2 = grad_P_new / grad_PlE
-        alpha = 1 - 1 / sqrt(Phi_lE_2)
-        ans.append(Phi_g_2)
+        out, (hn, cn) = self.lstm(x, (h0.detach(), c0.detach()))
 
-plt.plot(np.linspace(0,len(ans),len(ans)),ans)
-plt.scatter(np.linspace(0,len(ans),len(ans)),ans)
-plt.show()
-print(Phi_g_2)
-print(alpha)
-print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        out = self.fc(out)
+
+        return out
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-数据集划分"><a href="#3-数据集划分" class="headerlink" title="3.数据集划分"></a>3.数据集划分</h1><p>接下来需要将我们的数据集处理成模型可以读入的格式，在此之前我们需要定义一个<code>DataSet</code>类，方便我们完成对数据集的构建。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## file name: dataloader.py
+
+from torch.utils.data import Dataset
+
+class DataSet(Dataset):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __len__(self):
+        return len(self.x)
+
+    def __getitem__(self, index):
+        X = self.x[index]
+        Y = self.y[index]
+
+        return X, Y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由于在处理数据时我们需要用到<code>config.json</code>文件中的参数，所以需要读取的参数，而Python提供了读取<code>.json</code>格式的模块，我们只需要输入<code>import json</code>调用即可。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">import json
+
+configs = json.load(open('config.json', 'r'))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>接下来就可以放心处理数据了，在处理数据的过程中，我们需要将数据划分为<em>训练集</em>和<em>测试集</em>两个部分，然后分别找出其中的<code>labels</code>以及<code>target</code>分别作为<code>x</code>和<code>y</code>即可。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## file name: data_processer.py
+
+import json
+import torch
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from torch.utils.data import DataLoader
+from dataloader import DataSet
+
+class DataProcesser():
+
+    def data_processer(self):
+        configs = json.load(open('config.json', 'r'))
+
+        ## 载入数据
+        data = pd.read_excel('features.xlsx')
+        all_data = data.head(500)       # 为了方便计算选取了前500行作为原始数据
+
+        ## 数据预处理
+        scaler = MinMaxScaler(feature_range=(0, 1))     # 将数据压缩至0-1之间
+        sel_col = configs['data']['columns']
+        all_data = all_data[sel_col]
+
+        # 将数据集每个特征都压缩到0-1之间
+        for col in sel_col[1:]:
+            all_data[col] = scaler.fit_transform(all_data[col].values.reshape(-1, 1))
+
+        all_data = torch.tensor(np.array(all_data))
+
+        length = len(all_data)
+        tr_val_slip = int(configs['data']['train_test_split'] * length)      
+
+        x = torch.zeros(length - configs['data']['sequence_length'], configs['data']['sequence_length'], configs['model']['layers']['input_dim'])
+        y = torch.zeros(length - configs['data']['sequence_length'], configs['data']['sequence_length'], configs['model']['layers']['output_dim'])
+
+        for i in range(0, length - configs['data']['sequence_length'] - 1):
+            x[i] = all_data[i: i + configs['data']['sequence_length']]
+            y[i] = all_data[i + 1: i + configs['data']['sequence_length'] + 1][:, 0].reshape(-1, 1)
+
+        train_x = x[0: tr_val_slip]
+        train_y = y[0: tr_val_slip]
+        valid_x = x[tr_val_slip:]
+        valid_y = y[tr_val_slip:]
+
+        train_set = DataSet(train_x, train_y)
+        valid_set = DataSet(valid_x, valid_y)
+        train_loader = DataLoader(train_set, batch_size=configs['training']['batch_size'], shuffle=False)
+        valid_loader = DataLoader(valid_set, batch_size=configs['training']['batch_size'], shuffle=False)
+
+        return train_loader, valid_loader<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-模型训练"><a href="#4-模型训练" class="headerlink" title="4. 模型训练"></a>4. 模型训练</h1><p>接下来就是进行时间预测最耗时的部分了，此时我们需要对模型训练，与绝大部分深度学习框架相同，PyTorch同样支持cuda计算，但是为了避免有时GPU出现故障而无法使用时无法运行模型，这里对CPU与GPU进行选择：当GPU可以正常使用时使用GPU计算，反之使用CPU计算。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在进行模型训练时可以使用各种深度学习的可视化工具进行分析，例如PyTorch的<em>torchvision</em>，现在PyTorch也可以通过<em>tensorboardX</em>使用tensorflow的<em>tensorboard</em>。</p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## file name: lstm_train.py
+
+import json
+import torch
+import time
+import matplotlib
+import torch.nn as nn
+from LSTM import LSTM
+from data_processer import DataProcesser
+from matplotlib import pyplot as plt
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+configs = json.load(open('config.json', 'r'))
+
+
+data_processer = DataProcesser()
+train_loader, valid_loader = data_processer.data_processer()
+
+lstm = LSTM(input_dim=configs['model']['layers']['input_dim'], hidden_dim=configs['model']['layers']['neurons'], out_dim=configs['model']['layers']['output_dim'],
+                                   num_layers=configs['model']['layers']['layers']).to(device)
+loss_function = nn.MSELoss()
+optimizer = torch.optim.Adam(lstm.parameters(), lr=1e-4)
+
+tol_time = time.time()
+
+train_losses = []
+valid_losses = []
+for epoch in range(configs['training']['epochs']):
+    epoch_start_time = time.time()
+    train_loss = 0
+    train_acc = 0.
+    val_loss = 0
+    val_acc = 0.
+
+    lstm.train()
+    for i, data in enumerate(train_loader):
+        inputs, labels = data
+        y_pred = lstm(inputs)
+        loss = loss_function(y_pred, labels)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        train_loss += loss.item()
+    train_losses.append(train_loss)
+
+    lstm.eval()
+    with torch.no_grad():
+        for i, data in enumerate(valid_loader):
+            inputs, labels = data
+            val_pred = lstm(inputs)
+            loss = loss_function(val_pred, labels)
+            val_loss += loss.item()
+        valid_losses.append(val_loss)
+
+        if epoch % 100 == 0 and epoch != 0:
+            print('[%03d/%03d] Tra_Loss: %3.6f||val_Loss: %3.6f' % (epoch, configs['training']['epochs'], train_loss, val_loss))
+print("训练以及验证的总运行总时间：", time.time() - tol_time)
+
+if configs['model']['save_model']:
+    torch.save(lstm, 'lstm_model.pkl')
+
+figsize = 8,6
+fig = plt.figure(figsize=figsize)
+ax = fig.add_subplot(111)
+plt.subplots_adjust(left=0.08, right=0.94, bottom=0.06, top=0.94)
+plt.grid(True)
+plt.plot(train_losses, label='train_loss')
+plt.plot(valid_losses, label='valid_loss')
+plt.legend()
+plt.axis('tight')
+plt.setp(plt.gca().get_xticklabels(), rotation=50)
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这里，我们选择手动收集训练过程中的<code>loss</code>，如图3所示。</p>
+<img src="/2021/02/21/graduation-lstm/loss.png" width="400" height="300" alt="图3. 模型训练过程中的loss">
+
+<h1 id="5-模型预测"><a href="#5-模型预测" class="headerlink" title="5. 模型预测"></a>5. 模型预测</h1><p>在完成模型训练之后，就可以使用训练好的模型来进行预测了，这里进行预测的数据源自模型训练时的验证集，所以预测精度会很高，如图4所示。<br><img src="/2021/02/21/graduation-lstm/result.png" width="400" height="300" alt="图4. 模型预测结果"></p>
+<pre class="line-numbers language-py" data-language="py"><code class="language-py">## file name: lstm.valid.py
+
+import json
+import torch
+import numpy as np
+from matplotlib import pyplot as plt
+from data_processer import DataProcesser
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+configs = json.load(open('config.json', 'r'))
+
+
+lstm = torch.load('lstm_model.pkl')
+
+data_processer = DataProcesser()
+train_loader, valid_loader = data_processer.data_processer()
+
+
+y_valid_pred = lstm(valid_loader.dataset.x.to(device)).cpu()
+y_valid_pred = torch.squeeze(y_valid_pred, dim=2)
+y_valid_pred = y_valid_pred[:, configs['model']['layers']['input_dim']-1].detach().numpy()
+
+y_train = torch.squeeze(train_loader.dataset.y, dim=2)
+y_train = y_train[:, configs['model']['layers']['input_dim']-1 ].detach().numpy()
+
+y_valid = torch.squeeze(valid_loader.dataset.y, dim=2)
+y_valid = y_valid[:, configs['model']['layers']['input_dim']-1 ].detach().numpy()
+
+y = np.append(y_train, y_valid)
+figsize = 8,6
+fig = plt.figure(figsize=figsize)
+ax = fig.add_subplot(111)
+plt.subplots_adjust(left=0.08, right=0.94, bottom=0.06, top=0.94)
+plt.plot(y, label='observation')
+plt.plot(np.arange(len(y)-len(y_valid_pred), len(y)), y_valid_pred, label='prediction')
+plt.legend()
+plt.grid(True)
+plt.axis('tight')
+plt.setp(plt.gca().get_xticklabels(), rotation=50)
+plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -507,7 +678,7 @@ print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xiongzd.github.io/2021/01/31/fog-circulation/">https://xiongzd.github.io/2021/01/31/fog-circulation/</a>
+                    <a href="https://xiongzd.github.io/2021/02/21/graduation-lstm/">https://xiongzd.github.io/2021/02/21/graduation-lstm/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -545,20 +716,16 @@ print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%B8%A4%E7%9B%B8%E6%B5%81%E4%B8%8E%E4%BC%A0%E7%83%AD/">
-                                    <span class="chip bg-color">两相流与传热</span>
+                                <a href="/tags/PyTorch/">
+                                    <span class="chip bg-color">PyTorch</span>
                                 </a>
                             
-                                <a href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/">
-                                    <span class="chip bg-color">大学课程</span>
+                                <a href="/tags/LSTM/">
+                                    <span class="chip bg-color">LSTM</span>
                                 </a>
                             
-                                <a href="/tags/%E9%9B%BE%E7%8E%AF%E7%8A%B6%E6%B5%81%E5%8A%A8/">
-                                    <span class="chip bg-color">雾环状流动</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%91%A9%E9%98%BB%E5%88%86%E6%9E%90/">
-                                    <span class="chip bg-color">摩阻分析</span>
+                                <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/">
+                                    <span class="chip bg-color">时间序列</span>
                                 </a>
                             
                         </div>
@@ -874,6 +1041,43 @@ print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2021/02/21/graduation-crawler/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="graduation_crawler">
+                        
+                        <span class="card-title">graduation_crawler</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Xiong Zd
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2021/02/18/pytorch-2/">
                     <div class="card-image">
                         
@@ -890,9 +1094,9 @@ print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -924,43 +1128,6 @@ print(grad_P_new)<span aria-hidden="true" class="line-numbers-rows"><span></span
                         <span class="chip bg-color">DeepLearning with Pytorch</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/01/30/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-30
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Xiong Zd
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
